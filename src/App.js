@@ -45,18 +45,18 @@ class App extends Component {
 
 
             <div>
-                <Sidebar
-                    sidebar={<b>Sidebar content</b>}
-                    open={this.state.sidebarOpen}
-                    docked={this.state.sidebarDocked}
-                    onSetOpen={this.onSetSidebarOpen}
-                >
-                    <b>Main content</b>
-                </Sidebar>
+                {/*<Sidebar*/}
+                {/*    sidebar={<b>Sidebar content</b>}*/}
+                {/*    open={this.state.sidebarOpen}*/}
+                {/*    docked={this.state.sidebarDocked}*/}
+                {/*    onSetOpen={this.onSetSidebarOpen}*/}
+                {/*>*/}
+                {/*    <b>Main content</b>*/}
+                {/*</Sidebar>*/}
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
-                    <button onClick={() => this.onSetSidebarOpen(true)}>
-                        Open sidebar
-                    </button>
+                    {/*<button onClick={() => this.onSetSidebarOpen(true)}>*/}
+                    {/*    Open sidebar*/}
+                    {/*</button>*/}
                     <a href="/list" className="navbar-brand">
                         Commart
                     </a>
