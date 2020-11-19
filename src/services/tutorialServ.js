@@ -25,8 +25,8 @@ class TutorialDataService {
         return http.delete(`/tutorials`);
     }
 
-    findByTitle(title) {
-        return http.get(`/tutorials?title=${title}`);
+    findByTitle(title,priceMin,priceMax) {
+        return http.get(`/tutorials?title=${title}&priceMin=${priceMin}&priceMax=${priceMax}`);
     }
 }
 
