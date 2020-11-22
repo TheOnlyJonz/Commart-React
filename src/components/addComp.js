@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorialServ";
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 export default class AddTutorial extends Component {
     constructor(props) {
@@ -18,6 +20,7 @@ export default class AddTutorial extends Component {
             price: "",
             contact: "",
             published: false,
+            file: null,
 
             submitted: false
         };
@@ -50,8 +53,14 @@ export default class AddTutorial extends Component {
             title: this.state.title,
             description: this.state.description,
             price: this.state.price,
-            contact: this.state.contact
+            contact: this.state.contact,
         };
+
+        const imgData = new FormData()
+        imgData.append('file', this.state.file)
+
+
+        var postId = 0;
 
         TutorialDataService.create(data)
             .then(response => {
@@ -65,11 +74,24 @@ export default class AddTutorial extends Component {
 
                     submitted: true
                 });
-                console.log(response.data);
+                postId = response.data.id;
+                console.log("DOES THIS GET RAN");
+
             })
             .catch(e => {
                 console.log(e);
             });
+
+        TutorialDataService.uploadImg(imgData)
+            .then(response => {
+                console.log("Response:")
+                console.log(response.data);
+
+
+            }).catch(e =>{
+                console.log(e);
+
+        })
     }
 
     newTutorial() {
@@ -83,6 +105,14 @@ export default class AddTutorial extends Component {
             submitted: false
         });
     }
+
+    onChangeHandler=event=>{
+        this.setState({
+            file: event.target.files[0],
+            loaded: 0,
+        })
+    }
+
 
     render() {
         return (
@@ -148,6 +178,18 @@ export default class AddTutorial extends Component {
                             />
                         </div>
 
+                        <div className="form-group">
+                            <label htmlFor="file">Upload File:</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="file"
+                                onChange={this.onChangeHandler}
+                                name="file"
+                            />
+                        </div>
+
+
                         <button onClick={this.saveTutorial} className="btn btn-success">
                             Submit
                         </button>
@@ -156,4 +198,5 @@ export default class AddTutorial extends Component {
             </div>
         );
     }
+
 }

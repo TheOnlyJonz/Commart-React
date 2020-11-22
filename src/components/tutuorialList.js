@@ -175,7 +175,7 @@ export default class TutorialsList extends Component {
                                 type="button"
                                 onClick={this.ClearFilter}
                             >
-                                Clear Filters
+                                Reset
                             </button>
                         </div>
                     </div>

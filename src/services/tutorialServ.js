@@ -13,6 +13,10 @@ class TutorialDataService {
         return http.post("/tutorials", data);
     }
 
+    uploadImg(data){
+        return http.post("/tutorials/upload", data)
+    }
+
     update(id, data) {
         return http.put(`/tutorials/${id}`, data);
     }
@@ -28,6 +32,8 @@ class TutorialDataService {
     findByTitle(title,priceMin,priceMax) {
         return http.get(`/tutorials?title=${title}&priceMin=${priceMin}&priceMax=${priceMax}`);
     }
+
+
 }
 
 export default new TutorialDataService();
