@@ -33,6 +33,9 @@ class TutorialDataService {
         return http.get(`/tutorials?title=${title}&priceMin=${priceMin}&priceMax=${priceMax}`);
     }
 
+    findImg(id){
+        return http.get(`/tutorials/img?tutorial_id=${id}`)
+    }
 
 }
 

@@ -48,7 +48,7 @@ export default class AddTutorial extends Component {
         });
     }
 
-    saveTutorial() {
+    async saveTutorial() {
         var data = {
             title: this.state.title,
             description: this.state.description,
@@ -62,8 +62,8 @@ export default class AddTutorial extends Component {
 
         var postId = 0;
 
-        TutorialDataService.create(data)
-            .then(response => {
+        await TutorialDataService.create(data)
+            .then( response => {
                 this.setState({
                     id: response.data.id,
                     title: response.data.title,
@@ -75,7 +75,9 @@ export default class AddTutorial extends Component {
                     submitted: true
                 });
                 postId = response.data.id;
-                console.log("DOES THIS GET RAN");
+                console.log("DOES THIS GET RAN: " + postId);
+                imgData.append("tutorial_id",postId)
+
 
             })
             .catch(e => {
@@ -93,6 +95,7 @@ export default class AddTutorial extends Component {
 
         })
     }
+
 
     newTutorial() {
         this.setState({

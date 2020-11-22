@@ -63,6 +63,14 @@ export default class Tutorial extends Component {
             .catch(e => {
                 console.log(e);
             });
+        TutorialDataService.findImg(id)
+            .then(response => {
+
+            console.log(response.data);
+        })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
     updatePublished(status) {

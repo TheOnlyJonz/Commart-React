@@ -22,7 +22,8 @@ export default class TutorialsList extends Component {
             currentIndex: -1,
             searchTitle: "",
             priceMin: "",
-            priceMax: ""
+            priceMax: "",
+            img: ""
             // searchDesc: ""
         };
     }
@@ -69,12 +70,64 @@ export default class TutorialsList extends Component {
         });
     }
 
-    setActiveTutorial(tutorial, index) {
+    async setActiveTutorial(tutorial, index) {
         this.setState({
             currentTutorial: tutorial,
             currentIndex: index
         });
+        // TutorialDataService.findImg(tutorial.id)
+        //     .then(response => {
+        //
+        //         console.log("1xd")
+        //         console.log(response.data[0]);
+        //         // var base64Flag = response.data[0].type;
+        //         // var imageStr = this.arrayBufferToBase64(response.data[0].data.data);
+        //         //
+        //         // var b64Response = btoa(response.data[0].data.data);
+        //         //
+        //         // var outImg;
+        //         // outImg = 'image/png;base64,'+ b64Response;
+        //         // var outImg =  Buffer.from(response.data[0].data.data,'binary').toString('base64')
+        //
+        //
+        //         this.setState({
+        //             img: response.data
+        //         } )
+        //         console.log("HAHAHAHA")
+        //
+        //         console.log(this.state.img)
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     });
+
+        console.log(tutorial.id)
+        // await fetch(`http://localhost:8080/api/tutorials/img?tutorial_id=${tutorial.id}`)
+        await fetch(`http://64.225.11.129:8080/api/tutorials/img?tutorial_id=${tutorial.id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log('haha')
+                console.log(data)
+                var base64Flag = 'data:image/png;base64,';
+
+                var imageStr = this.arrayBufferToBase64(data[0].data.data);
+
+                this.setState({
+                    img: base64Flag + imageStr
+                })
+         })
+
+
+
+        // console.log('adfadf')
+        // console.log(this.state.img)
     }
+    arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
 
     removeAllTutorials() {
         TutorialDataService.deleteAll()
@@ -122,7 +175,9 @@ export default class TutorialsList extends Component {
     // }
 
     render() {
+        const img = this.state.img;
         return (
+
             <div className="list row">
                 <div className="col-md-8">
                     <div className="input-group mb-3">
@@ -234,6 +289,9 @@ export default class TutorialsList extends Component {
                                     <strong>Contact:</strong>
                                 </label>{" "}
                                 {this.state.currentTutorial.contact}
+                            </div>
+                            <div>
+                                <img src={img}/>
                             </div>
                             {/*<div>*/}
                             {/*    <label>*/}
